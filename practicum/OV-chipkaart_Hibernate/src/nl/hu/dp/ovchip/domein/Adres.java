@@ -1,18 +1,22 @@
 package nl.hu.dp.ovchip.domein;
 
 import org.hibernate.annotations.Fetch;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
 
+import javax.persistence.*;
+
+@Entity(name = "Adres")
+@Table(name = "Adres")
 public class Adres {
+    @Id
+    @GeneratedValue
     private int id;
     private String postcode;
     private String huisnummer;
     private String straat;
     private String woonplaats;
 
-    @OnetoOne(fetch = FetchType.Lazy)
-
+    @OneToOne(fetch = FetchType.LAZY)
+    private Reiziger reiziger;
 
     public Adres(){
 

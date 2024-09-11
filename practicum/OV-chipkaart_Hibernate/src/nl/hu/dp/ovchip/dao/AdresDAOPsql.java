@@ -63,8 +63,10 @@ public class AdresDAOPsql implements AdresDAO {
             adres.setHuisnummer("huisnummer");
             adres.setStraat("straat");
             adres.setWoonplaats("woonplaats");
+            pst.close();
             return adres;
         }
+        pst.close();
         return null;
     }
 

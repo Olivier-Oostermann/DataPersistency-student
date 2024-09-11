@@ -1,12 +1,10 @@
 package nl.hu.dp.ovchip.domein;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity(name = "Reiziger")
-@TABLE(name = "Reiziger")
+@Table(name = "Reiziger")
 public class Reiziger {
     private int id;
     private String voorletters;
@@ -14,12 +12,10 @@ public class Reiziger {
     private String achternaam;
     private Date geboortedatum;
 
-
     @OneToOne(
-            mappedBy = "reiziger",
+            mappedBy = "Reiziger",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.Lazy
+            orphanRemoval = true
     )
     private Adres adres;
 
