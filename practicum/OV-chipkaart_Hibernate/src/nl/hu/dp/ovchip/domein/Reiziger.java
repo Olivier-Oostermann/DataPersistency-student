@@ -1,5 +1,7 @@
 package nl.hu.dp.ovchip.domein;
 
+import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -7,7 +9,6 @@ import java.sql.Date;
 @Table(name = "reiziger")
 public class Reiziger {
     @Id
-    @GeneratedValue
     @Column(name = "reiziger_id")
     private int id;
 
@@ -39,6 +40,7 @@ public class Reiziger {
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;
     }
+
 
     public int getId() {
         return id;

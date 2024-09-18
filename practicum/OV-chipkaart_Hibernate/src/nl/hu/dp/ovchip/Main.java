@@ -102,12 +102,32 @@ public class Main {
 
         // Maak een nieuwe reiziger aan en persisteer deze in de database
         String gbdatum = "1981-03-14";
-        Reiziger sietske = new Reiziger(21, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
+        Reiziger sietske = new Reiziger(6, "S", null, "Boers", java.sql.Date.valueOf(gbdatum));
         System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.save() ");
-//        rdao.save(sietske);
+        rdao.save(sietske);
         reizigers = rdao.findAll();
         System.out.println(reizigers.size() + " reizigers\n");
 
-        // Voeg aanvullende tests van de ontbrekende CRUD-operaties in.
+        // Haal reizigers op met de geboortedatum
+        String geboorteDatum = "1981-03-14";
+        List<Reiziger> reizigerByDate = rdao.findByGbdatum(java.sql.Date.valueOf(geboorteDatum));
+        System.out.println("Aantal reizigers met geboortedatum " + geboorteDatum + ": " + reizigerByDate.size() + "\n");
+
+        // Haal een reiziger op met het id
+        int reiziger_id = 6;
+        Reiziger reiziger = rdao.findById(reiziger_id);
+        System.out.println("Reiziger met id " + reiziger_id + ": " + reiziger.toString() + "\n");
+
+        // Update een reiziger aan en persisteer deze in de database
+        reiziger.setVoorletters("O");
+        reiziger.setTussenvoegsel("van der");
+        reiziger.setAchternaam("Ende");
+        rdao.update(reiziger);
+        System.out.println("De reiziger is geupdate. de reiziger zijn/haar volledige naam is nu: " + reiziger.getNaam() + "\n");
+
+        // Delete een reiziger van de database
+        System.out.println("De volgende reiziger wordt verwijderd: " + reiziger.getNaam());
+        rdao.delete(reiziger);
+
     }
 }

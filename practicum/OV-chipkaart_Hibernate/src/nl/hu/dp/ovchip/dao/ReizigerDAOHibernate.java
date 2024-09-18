@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ReizigerDAOHibernate implements ReizigerDAO {
     private SessionFactory sessionFactory = null;
-    private Transaction tx;
+//    private Transaction tx;
 
     public ReizigerDAOHibernate(SessionFactory sf) throws SQLException {
         this.sessionFactory = sf;
@@ -19,66 +19,127 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
 
     public boolean save(Reiziger reiziger) {
         Session session = sessionFactory.openSession();
-        Transaction tx = null;
+        Transaction tx = session.beginTransaction();
+
         try {
-            tx = session.beginTransaction();
             session.save(reiziger);
             tx.commit();
             session.flush();
-
-            return true;
-//            String save_query = "INSERT INTO reiziger (reiziger_id, voorletters, tussenvoegsel, achternaam, geboortedatum) VALUES (?,?,?,?,?)";
-//            Query query = session.createQuery(save_query);
-//            query.executeUpdate();
-//
-//            PreparedStatement pst = conn.prepareStatement(save_query);
-//            pst.setInt(1, reiziger.getId());
-//            pst.setString(2, reiziger.getVoorletters());
-//            pst.setString(3, reiziger.getTussenvoegsel());
-//            pst.setString(4, reiziger.getAchternaam());
-//            pst.setDate(5, reiziger.getGeboortedatum());
-//            pst.executeUpdate();
-//            return true;
         } catch (HibernateException e) {
             tx.rollback();
             return false;
         } finally {
             session.close();
+            return true;
         }
     }
 
     @Override
     public boolean update(Reiziger reiziger) throws SQLException {
-        return false;
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        try{
+            String hql = "UPDATE Reiziger SET voorletters = :voorletters, tussenvoegsel = :tussenvoegsel, achternaam = :achternaam, geboortedatum = :geboortedatum WHERE id = :reiziger_id";
+            Query query = session.createQuery(hql);
+            query.setParameter("voorletters", reiziger.getVoorletters());
+            query.setParameter("tussenvoegsel", reiziger.getTussenvoegsel());
+            query.setParameter("achternaam", reiziger.getAchternaam());
+            query.setParameter("geboortedatum", reiziger.getGeboortedatum());
+            query.setParameter("reiziger_id", reiziger.getId());
+            query.executeUpdate();
+            tx.commit();
+//            session.flush();
+        } catch (HibernateException e){
+            throw e;
+        } finally {
+            session.close();
+            return true;
+        }
     }
 
     @Override
     public boolean delete(Reiziger reiziger) throws SQLException {
-        return false;
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        try{
+            String hql = "DELETE FROM Reiziger WHERE id = :reiziger_id";
+            Query query = session.createQuery(hql);
+            query.setParameter("reiziger_id", reiziger.getId());
+            query.executeUpdate();
+            tx.commit();
+//            session.flush();
+        } catch (HibernateException e){
+            throw e;
+        } finally {
+            session.close();
+            return true;
+        }
     }
 
     @Override
     public Reiziger findById(int reiziger_id) throws SQLException {
-        return null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Reiziger reiziger = null;
+
+        try{
+            String hql = "FROM Reiziger WHERE id = :reiziger_id";
+            Query<Reiziger> query = session.createQuery(hql, Reiziger.class);
+            query.setParameter("reiziger_id", reiziger_id);
+            reiziger = query.getSingleResult();
+            tx.commit();
+//            session.flush();
+        } catch (HibernateException e){
+            throw e;
+        } finally {
+            session.close();
+        }
+        return reiziger;
+
     }
 
     @Override
     public List<Reiziger> findByGbdatum(Date date) throws SQLException {
-        return List.of();
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        List<Reiziger> reizigers;
+        try{
+            String hql = "FROM Reiziger WHERE geboortedatum = :date";
+            Query<Reiziger> query = session.createQuery(hql, Reiziger.class);
+            query.setParameter("date", date);
+            reizigers = query.list();
+            tx.commit();
+//            session.flush();
+        } catch (HibernateException e){
+            throw e;
+        } finally {
+            session.close();
+        }
+        return reizigers;
     }
 
     @Override
     public List<Reiziger> findAll() throws SQLException {
-        try (Session session = sessionFactory.openSession()) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        List<Reiziger> reizigers;
+        try{
             String hql = "FROM Reiziger";
             Query<Reiziger> query = session.createQuery(hql, Reiziger.class);
-            return query.list();
+            reizigers = query.list();
+            tx.commit();
+//            session.flush();
         } catch (HibernateException e) {
-            tx.rollback();
+//            tx.rollback();
+            throw e;
         } finally {
-            sessionFactory.close();
+            session.close();
         }
-        return List.of();
+        return reizigers;
     }
 
 }
