@@ -125,7 +125,7 @@ public class Main {
         rdao.update(reiziger);
         System.out.println("De reiziger is geupdate. de reiziger zijn/haar volledige naam is nu: " + reiziger.getNaam() + "\n");
 
-        // Delete een reiziger van de database
+//         Delete een reiziger van de database
         System.out.println("De volgende reiziger wordt verwijderd: " + reiziger.getNaam());
         rdao.delete(reiziger);
 

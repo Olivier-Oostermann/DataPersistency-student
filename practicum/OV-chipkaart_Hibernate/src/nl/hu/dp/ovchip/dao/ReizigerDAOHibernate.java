@@ -20,7 +20,6 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
     public boolean save(Reiziger reiziger) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-
         try {
             session.save(reiziger);
             tx.commit();
@@ -40,16 +39,8 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
         Transaction tx = session.beginTransaction();
 
         try{
-            String hql = "UPDATE Reiziger SET voorletters = :voorletters, tussenvoegsel = :tussenvoegsel, achternaam = :achternaam, geboortedatum = :geboortedatum WHERE id = :reiziger_id";
-            Query query = session.createQuery(hql);
-            query.setParameter("voorletters", reiziger.getVoorletters());
-            query.setParameter("tussenvoegsel", reiziger.getTussenvoegsel());
-            query.setParameter("achternaam", reiziger.getAchternaam());
-            query.setParameter("geboortedatum", reiziger.getGeboortedatum());
-            query.setParameter("reiziger_id", reiziger.getId());
-            query.executeUpdate();
+            session.update(reiziger);
             tx.commit();
-//            session.flush();
         } catch (HibernateException e){
             throw e;
         } finally {
@@ -62,14 +53,9 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
     public boolean delete(Reiziger reiziger) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-
         try{
-            String hql = "DELETE FROM Reiziger WHERE id = :reiziger_id";
-            Query query = session.createQuery(hql);
-            query.setParameter("reiziger_id", reiziger.getId());
-            query.executeUpdate();
+            session.delete(reiziger);
             tx.commit();
-//            session.flush();
         } catch (HibernateException e){
             throw e;
         } finally {
@@ -82,15 +68,11 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
     public Reiziger findById(int reiziger_id) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        Reiziger reiziger = null;
+        Reiziger reiziger;
 
         try{
-            String hql = "FROM Reiziger WHERE id = :reiziger_id";
-            Query<Reiziger> query = session.createQuery(hql, Reiziger.class);
-            query.setParameter("reiziger_id", reiziger_id);
-            reiziger = query.getSingleResult();
+            reiziger = session.get(Reiziger.class, reiziger_id);
             tx.commit();
-//            session.flush();
         } catch (HibernateException e){
             throw e;
         } finally {
@@ -112,7 +94,6 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
             query.setParameter("date", date);
             reizigers = query.list();
             tx.commit();
-//            session.flush();
         } catch (HibernateException e){
             throw e;
         } finally {
@@ -125,16 +106,13 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
     public List<Reiziger> findAll() throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-
         List<Reiziger> reizigers;
+
         try{
-            String hql = "FROM Reiziger";
-            Query<Reiziger> query = session.createQuery(hql, Reiziger.class);
+            Query<Reiziger> query = session.createQuery("FROM Reiziger", Reiziger.class);
             reizigers = query.list();
             tx.commit();
-//            session.flush();
         } catch (HibernateException e) {
-//            tx.rollback();
             throw e;
         } finally {
             session.close();
