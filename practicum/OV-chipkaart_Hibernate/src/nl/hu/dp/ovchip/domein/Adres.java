@@ -9,10 +9,19 @@ import javax.persistence.*;
 public class Adres {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private int id;
+
+    @Column(name = "postcode")
     private String postcode;
+
+    @Column(name = "huisnummer")
     private String huisnummer;
+
+    @Column(name = "straat")
     private String straat;
+
+    @Column(name = "straat")
     private String woonplaats;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -62,7 +71,14 @@ public class Adres {
         this.woonplaats = woonplaats;
     }
 
+    public Reiziger getReiziger() {
+        return reiziger;
+    }
+    public void setReiziger(Reiziger reiziger) {
+        this.reiziger = reiziger;
+    }
+
     public String toString(){
-        return null;
+        return postcode + " " + woonplaats + " " + straat;
     }
 }

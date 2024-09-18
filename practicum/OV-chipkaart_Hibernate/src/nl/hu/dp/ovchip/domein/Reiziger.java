@@ -3,21 +3,34 @@ package nl.hu.dp.ovchip.domein;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity(name = "Reiziger")
-@Table(name = "Reiziger")
+@Entity
+@Table(name = "reiziger")
 public class Reiziger {
+    @Id
+    @GeneratedValue
+    @Column(name = "reiziger_id")
     private int id;
+
+    @Column(name = "voorletters")
     private String voorletters;
+
+    @Column(name = "tussenvoegsel")
     private String tussenvoegsel;
+
+    @Column(name = "achternaam")
     private String achternaam;
+
+    @Column(name = "geboortedatum")
     private Date geboortedatum;
 
-    @OneToOne(
-            mappedBy = "Reiziger",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private Adres adres;
+//    @OneToOne(
+//            mappedBy = "reiziger",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private Adres adres;
+
+    public Reiziger() {}
 
     public Reiziger(int id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {
         this.id = id;

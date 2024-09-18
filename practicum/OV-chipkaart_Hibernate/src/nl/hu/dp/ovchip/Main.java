@@ -1,6 +1,8 @@
 package nl.hu.dp.ovchip;
 
-import nl.hu.dp.ovchip.domein.Adres;
+import nl.hu.dp.ovchip.dao.ReizigerDAO;
+import nl.hu.dp.ovchip.dao.ReizigerDAOHibernate;
+import nl.hu.dp.ovchip.dao.ReizigerDAOPsql;
 import nl.hu.dp.ovchip.domein.OVChipkaart;
 import nl.hu.dp.ovchip.domein.Product;
 import nl.hu.dp.ovchip.domein.Reiziger;
@@ -12,6 +14,8 @@ import org.hibernate.query.Query;
 
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.Metamodel;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -41,32 +45,69 @@ public class Main {
      * @return Hibernate session
      * @throws HibernateException
      */
-    private static Session getSession() throws HibernateException {
-        return factory.openSession();
-    }
+//    private static Session getSession() throws HibernateException {
+//        return factory.openSession();
+//    }
 
+    /**
+     * P2. Reiziger DAO: persistentie van een klasse
+     *
+     * Deze methode test de CRUD-functionaliteit van de Reiziger DAO
+     *
+     * @throws SQLException
+     */
     public static void main(String[] args) throws SQLException {
-        testFetchAll();
+        ReizigerDAO rdao = new ReizigerDAOHibernate(factory);
+        testReizigerDAO(rdao);
+//        testFetchAll();
     }
 
     /**
      * P6. Haal alle (geannoteerde) entiteiten uit de database.
      */
-    private static void testFetchAll() {
-        Session session = getSession();
-        try {
-            Metamodel metamodel = session.getSessionFactory().getMetamodel();
-            for (EntityType<?> entityType : metamodel.getEntities()) {
-                Query query = session.createQuery("from " + entityType.getName());
+//    private static void testFetchAll() {
+//        Session session = getSession();
+//        try {
+//            Metamodel metamodel = session.getSessionFactory().getMetamodel();
+//            for (EntityType<?> entityType : metamodel.getEntities()) {
+//                Query query = session.createQuery("from " + entityType.getName());
+//
+//                System.out.println("[Test] Alle objecten van type " + entityType.getName() + " uit database:");
+//                for (Object o : query.list()) {
+//                    System.out.println("  " + o);
+//                }
+//                System.out.println();
+//            }
+//        } finally {
+//            session.close();
+//        }
+//    }
+    /**
+     * P2. Reiziger DAO: persistentie van een klasse
+     *
+     * Deze methode test de CRUD-functionaliteit van de Reiziger DAO
+     *
+     * @throws SQLException
+     */
+    private static void testReizigerDAO(ReizigerDAO rdao) throws SQLException {
+        System.out.println("\n---------- Test ReizigerDAO -------------");
 
-                System.out.println("[Test] Alle objecten van type " + entityType.getName() + " uit database:");
-                for (Object o : query.list()) {
-                    System.out.println("  " + o);
-                }
-                System.out.println();
-            }
-        } finally {
-            session.close();
+        // Haal alle reizigers op uit de database
+        List<Reiziger> reizigers = rdao.findAll();
+        System.out.println("[Test] ReizigerDAO.findAll() geeft de volgende reizigers:");
+        for (Reiziger r : reizigers) {
+            System.out.println(r);
         }
+        System.out.println();
+
+        // Maak een nieuwe reiziger aan en persisteer deze in de database
+        String gbdatum = "1981-03-14";
+        Reiziger sietske = new Reiziger(21, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
+        System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.save() ");
+//        rdao.save(sietske);
+        reizigers = rdao.findAll();
+        System.out.println(reizigers.size() + " reizigers\n");
+
+        // Voeg aanvullende tests van de ontbrekende CRUD-operaties in.
     }
 }
