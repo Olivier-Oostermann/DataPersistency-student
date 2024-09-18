@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "Adres")
 public class Adres {
     @Id
-    @GeneratedValue
     @Column(name = "id")
     private int id;
 
@@ -21,7 +20,7 @@ public class Adres {
     @Column(name = "straat")
     private String straat;
 
-    @Column(name = "straat")
+    @Column(name = "woonplaats")
     private String woonplaats;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -79,6 +78,6 @@ public class Adres {
     }
 
     public String toString(){
-        return postcode + " " + woonplaats + " " + straat;
+        return "Adresgegevens: " + postcode + " " + woonplaats + " " + straat + " " + huisnummer;
     }
 }

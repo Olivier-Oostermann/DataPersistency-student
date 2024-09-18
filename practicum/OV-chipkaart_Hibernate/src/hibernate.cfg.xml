@@ -20,7 +20,7 @@
 <!--         <property name="format_sql">true</property>-->
 
         <mapping class="nl.hu.dp.ovchip.domein.Reiziger"/>
-<!--        <mapping class="nl.hu.dp.ovchip.domein.Adres"/>-->
+        <mapping class="nl.hu.dp.ovchip.domein.Adres"/>
 
     </session-factory>
 </hibernate-configuration>
