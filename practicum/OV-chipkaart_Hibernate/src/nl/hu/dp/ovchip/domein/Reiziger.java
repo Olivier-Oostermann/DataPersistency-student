@@ -24,12 +24,12 @@ public class Reiziger {
     @Column(name = "geboortedatum")
     private Date geboortedatum;
 
-//    @OneToOne(
-//            mappedBy = "reiziger",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private Adres adres;
+    @OneToOne(
+            mappedBy = "reiziger",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Adres adres;
 
     public Reiziger() {}
 

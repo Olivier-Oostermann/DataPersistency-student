@@ -6,33 +6,48 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class AdresDAOHibernate implements AdresDAO{
-    private SessionFactory sessionFactory = null;
+    private SessionFactory sessionFactory;
 
     public AdresDAOHibernate(SessionFactory sf){
         this.sessionFactory = sf;
     }
+
     @Override
     public boolean save(Adres adres) throws SQLException {
-        return false;
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            session.save(adres);
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public boolean update(Adres adres) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
+
         try{
             session.update(adres);
             tx.commit();
-        } catch (HibernateException e){
+            return true;
+        } catch (Exception e){
+            tx.rollback();
             throw e;
         } finally {
             session.close();
-            return true;
         }
     }
 
@@ -43,11 +58,12 @@ public class AdresDAOHibernate implements AdresDAO{
         try{
             session.delete(adres);
             tx.commit();
-        } catch (HibernateException e){
+            return true;
+        } catch (Exception e){
+            tx.rollback();
             throw e;
         } finally {
             session.close();
-            return true;
         }
     }
 
@@ -58,6 +74,20 @@ public class AdresDAOHibernate implements AdresDAO{
 
     @Override
     public List<Adres> findAll() throws SQLException {
-        return null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        List<Adres> adressen;
+
+        try{
+            Query<Adres> query = session.createQuery("FROM Adres", Adres.class);
+            adressen = query.list();
+            tx.commit();
+            return adressen;
+        } catch (Exception e) {
+            tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 }
