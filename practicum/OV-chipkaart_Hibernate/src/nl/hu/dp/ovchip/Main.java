@@ -139,35 +139,35 @@ public class Main {
 
 
         // Maak een nieuw adres aan en persisteer deze in de database
-//        String gbDatumAdres = "2003-12-17";
-//        Reiziger olivier = new Reiziger(99, "O", "", "Oostermann", java.sql.Date.valueOf(gbDatumAdres));
-//        rdao.save(olivier);
-//        Adres adres = new Adres();
-//        adres.setId(8);
-//        adres.setPostcode("2408RV");
-//        adres.setHuisnummer("21");
-//        adres.setStraat("Schouw");
-//        adres.setWoonplaats("Alphen aan den Rijn");
-//        adres.setReiziger(olivier);
-//        System.out.print("[Test] Eerst " + adressen.size() + " adressen, na AdresDAO.save() ");
-//        adao.save(adres);
-//        List<Adres> alleAdressen = adao.findAll();
-//        System.out.println(alleAdressen.size() + " adressen\n");
+        String gbDatumAdres = "2003-12-17";
+        Reiziger olivier = new Reiziger(6, "O", "", "Oostermann", java.sql.Date.valueOf(gbDatumAdres));
+        rdao.save(olivier);
+        Adres adres = new Adres();
+        adres.setId(6);
+        adres.setPostcode("2408RV");
+        adres.setHuisnummer("21");
+        adres.setStraat("Schouw");
+        adres.setWoonplaats("Alphen aan den Rijn");
+        adres.setReiziger(olivier);
+        System.out.print("[Test] Eerst " + adressen.size() + " adressen, na AdresDAO.save() ");
+        adao.save(adres);
+        List<Adres> alleAdressen = adao.findAll();
+        System.out.println(alleAdressen.size() + " adressen\n");
 
         // Update een adres en persisteer deze in de database
-//        adres.setStraat("De morgen");
-//        adao.update(adres);
-//        System.out.println("Het adres is geupdate. De straatnaam is nu: " + adres.getStraat());
+        adres.setStraat("De Morgen");
+        adao.update(adres);
+        System.out.println("Het adres is geupdate. De straatnaam is nu: " + adres.getStraat());
 
         // vind het adres van een reiziger
-//        System.out.println("Het adres van een specifieke reiziger:");
-//        Adres gevondenAdres = adao.findByReiziger(olivier);
-//        System.out.println(gevondenAdres);
+        System.out.println("Het adres van een specifieke reiziger:");
+        Adres gevondenAdres = adao.findByReiziger(olivier);
+        System.out.println(gevondenAdres);
 
         // Delete een reiziger van de database
-//        System.out.println("Het volgende adres wordt verwijderd: " + adres);
-//        adao.delete(adres);
-//        rdao.delete(olivier);
+        System.out.println("Het volgende adres wordt verwijderd: " + adres);
+        adao.delete(adres);
+        rdao.delete(olivier);
 
     }
 }

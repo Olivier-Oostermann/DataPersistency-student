@@ -69,7 +69,19 @@ public class AdresDAOHibernate implements AdresDAO{
 
     @Override
     public Adres findByReiziger(Reiziger r) throws SQLException {
-        return null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        Adres adres;
+        try{
+            adres = session.get(Adres.class, r.getId());
+            tx.commit();
+            return adres;
+        } catch (Exception e) {
+            tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
