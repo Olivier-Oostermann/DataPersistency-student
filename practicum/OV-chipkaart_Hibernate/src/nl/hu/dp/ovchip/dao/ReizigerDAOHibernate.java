@@ -3,10 +3,8 @@ package nl.hu.dp.ovchip.dao;
 import nl.hu.dp.ovchip.domein.Reiziger;
 import org.hibernate.*;
 import org.hibernate.query.Query;
-import org.postgresql.core.ConnectionFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReizigerDAOHibernate implements ReizigerDAO {

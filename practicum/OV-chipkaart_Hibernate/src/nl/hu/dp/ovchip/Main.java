@@ -2,20 +2,13 @@ package nl.hu.dp.ovchip;
 
 import nl.hu.dp.ovchip.dao.ReizigerDAO;
 import nl.hu.dp.ovchip.dao.ReizigerDAOHibernate;
-import nl.hu.dp.ovchip.dao.ReizigerDAOPsql;
-import nl.hu.dp.ovchip.domein.OVChipkaart;
-import nl.hu.dp.ovchip.domein.Product;
 import nl.hu.dp.ovchip.domein.Reiziger;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
+
 import java.sql.SQLException;
 import java.util.List;
 
