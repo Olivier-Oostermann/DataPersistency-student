@@ -157,12 +157,12 @@ public class Main {
         // Update een adres en persisteer deze in de database
         adres.setStraat("De Morgen");
         adao.update(adres);
-        System.out.println("Het adres is geupdate. De straatnaam is nu: " + adres.getStraat());
+        System.out.println("Het adres is geupdate. De straatnaam is nu: " + adres.getStraat() + "\n");
 
         // vind het adres van een reiziger
         System.out.println("Het adres van een specifieke reiziger:");
         Adres gevondenAdres = adao.findByReiziger(olivier);
-        System.out.println(gevondenAdres);
+        System.out.println(gevondenAdres + "\n");
 
         // Delete een reiziger van de database
         System.out.println("Het volgende adres wordt verwijderd: " + adres);
