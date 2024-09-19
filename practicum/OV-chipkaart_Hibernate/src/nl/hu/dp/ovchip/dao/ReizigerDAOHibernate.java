@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReizigerDAOHibernate implements ReizigerDAO {
-    private SessionFactory sessionFactory = null;
-//    private Transaction tx;
+    private SessionFactory sessionFactory;
 
     public ReizigerDAOHibernate(SessionFactory sf) throws SQLException {
         this.sessionFactory = sf;
@@ -23,13 +22,12 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
         try {
             session.save(reiziger);
             tx.commit();
-            session.flush();
-        } catch (HibernateException e) {
+            return true;
+        } catch (Exception e) {
             tx.rollback();
-            return false;
+            throw e;
         } finally {
             session.close();
-            return true;
         }
     }
 
@@ -41,11 +39,12 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
         try{
             session.update(reiziger);
             tx.commit();
-        } catch (HibernateException e){
+            return true;
+        } catch (Exception e){
+            tx.rollback();
             throw e;
         } finally {
             session.close();
-            return true;
         }
     }
 
@@ -56,11 +55,12 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
         try{
             session.delete(reiziger);
             tx.commit();
-        } catch (HibernateException e){
+            return true;
+        } catch (Exception e){
+            tx.rollback();
             throw e;
         } finally {
             session.close();
-            return true;
         }
     }
 
@@ -69,16 +69,16 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         Reiziger reiziger;
-
         try{
             reiziger = session.get(Reiziger.class, reiziger_id);
             tx.commit();
-        } catch (HibernateException e){
+            return reiziger;
+        } catch (Exception e){
+            tx.rollback();
             throw e;
         } finally {
             session.close();
         }
-        return reiziger;
 
     }
 
@@ -94,12 +94,13 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
             query.setParameter("date", date);
             reizigers = query.list();
             tx.commit();
+            return reizigers;
         } catch (HibernateException e){
+            tx.rollback();
             throw e;
         } finally {
             session.close();
         }
-        return reizigers;
     }
 
     @Override
@@ -112,12 +113,13 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
             Query<Reiziger> query = session.createQuery("FROM Reiziger", Reiziger.class);
             reizigers = query.list();
             tx.commit();
-        } catch (HibernateException e) {
+            return reizigers;
+        } catch (Exception e) {
+            tx.rollback();
             throw e;
         } finally {
             session.close();
         }
-        return reizigers;
     }
 
 }
