@@ -90,43 +90,41 @@ public class Main {
         System.out.println("\n---------- Test ReizigerDAO -------------");
 
         // Haal alle reizigers op uit de database
-//        List<Reiziger> reizigers = rdao.findAll();
-//        System.out.println("[Test] ReizigerDAO.findAll() geeft de volgende reizigers:");
-//        for (Reiziger r : reizigers) {
-//            System.out.println(r);
-//        }
-//        System.out.println();
+        List<Reiziger> reizigers = rdao.findAll();
+        System.out.println("[Test] ReizigerDAO.findAll() geeft de volgende reizigers:");
+        for (Reiziger r : reizigers) {
+            System.out.println(r);
+        }
+        System.out.println();
 
         // Maak een nieuwe reiziger aan en persisteer deze in de database
-//        String gbdatum = "1981-03-14";
-//        Reiziger sietske = new Reiziger(6, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
-//        System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.save() ");
-//        rdao.save(sietske);
-//        reizigers = rdao.findAll();
-//        System.out.println(reizigers.size() + " reizigers\n");
+        String gbdatum = "1981-03-14";
+        Reiziger sietske = new Reiziger(6, "S", "", "Boers", java.sql.Date.valueOf(gbdatum));
+        System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na ReizigerDAO.save() ");
+        rdao.save(sietske);
+        reizigers = rdao.findAll();
+        System.out.println(reizigers.size() + " reizigers\n");
 
         // Haal reizigers op met de geboortedatum
-//        String geboorteDatum = "1981-03-14";
-//        List<Reiziger> reizigerByDate = rdao.findByGbdatum(java.sql.Date.valueOf(geboorteDatum));
-//        System.out.println("Aantal reizigers met geboortedatum " + geboorteDatum + ": " + reizigerByDate.size() + "\n");
+        String geboorteDatum = "2002-12-03";
+        List<Reiziger> reizigerByDate = rdao.findByGbdatum(java.sql.Date.valueOf(geboorteDatum));
+        System.out.println("Aantal reizigers met geboortedatum " + geboorteDatum + ": " + reizigerByDate.size() + "\n");
 
         // Haal een reiziger op met het id
-//        int reiziger_id = 6;
-//        Reiziger reiziger = rdao.findById(reiziger_id);
-//        System.out.println("Reiziger met id " + reiziger_id + ": " + reiziger.toString() + "\n");
+        int reiziger_id = 6;
+        Reiziger reiziger = rdao.findById(reiziger_id);
+        System.out.println("Reiziger met id " + reiziger_id + ": " + reiziger.toString() + "\n");
 
         // Update een reiziger aan en persisteer deze in de database
-//        reiziger.setVoorletters("O");
-//        reiziger.setTussenvoegsel("van der");
-//        reiziger.setAchternaam("Ende");
-//        rdao.update(reiziger);
-//        System.out.println("De reiziger is geupdate. de reiziger zijn/haar volledige naam is nu: " + reiziger.getNaam() + "\n");
+        reiziger.setVoorletters("O");
+        reiziger.setTussenvoegsel("van der");
+        reiziger.setAchternaam("Ende");
+        rdao.update(reiziger);
+        System.out.println("De reiziger is geupdate. de reiziger zijn/haar volledige naam is nu: " + reiziger.getNaam() + "\n");
 
-//         Delete een reiziger van de database
-//        System.out.println("De volgende reiziger wordt verwijderd: " + reiziger.getNaam());
-//        rdao.delete(reiziger);
-
-
+        // Delete een reiziger van de database
+        System.out.println("De volgende reiziger wordt verwijderd: " + reiziger.getNaam());
+        rdao.delete(reiziger);
 
 
         // Haal alle adressen op uit de database
@@ -137,13 +135,12 @@ public class Main {
         }
         System.out.println();
 
-
         // Maak een nieuw adres aan en persisteer deze in de database
         String gbDatumAdres = "2003-12-17";
-        Reiziger olivier = new Reiziger(6, "O", "", "Oostermann", java.sql.Date.valueOf(gbDatumAdres));
+        Reiziger olivier = new Reiziger(7, "O", "", "Oostermann", java.sql.Date.valueOf(gbDatumAdres));
         rdao.save(olivier);
         Adres adres = new Adres();
-        adres.setId(6);
+        adres.setId(7);
         adres.setPostcode("2408RV");
         adres.setHuisnummer("21");
         adres.setStraat("Schouw");

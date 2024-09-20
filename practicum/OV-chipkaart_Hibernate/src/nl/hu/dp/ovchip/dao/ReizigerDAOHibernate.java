@@ -4,6 +4,9 @@ import nl.hu.dp.ovchip.domein.Reiziger;
 import org.hibernate.*;
 import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.sql.*;
 import java.util.List;
 
@@ -87,9 +90,12 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
 
         List<Reiziger> reizigers;
         try{
-            String hql = "FROM Reiziger WHERE geboortedatum = :date";
-            Query<Reiziger> query = session.createQuery(hql, Reiziger.class);
-            query.setParameter("date", date);
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Reiziger> cr = cb.createQuery(Reiziger.class);
+            Root<Reiziger> root = cr.from(Reiziger.class);
+            cr.select(root);
+            cr.select(root).where(cb.equal(root.get("geboortedatum"), date));
+            Query<Reiziger> query = session.createQuery(cr);
             reizigers = query.list();
             tx.commit();
             return reizigers;
@@ -108,7 +114,12 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
         List<Reiziger> reizigers;
 
         try{
-            Query<Reiziger> query = session.createQuery("FROM Reiziger", Reiziger.class);
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Reiziger> cr = cb.createQuery(Reiziger.class);
+            Root<Reiziger> root = cr.from(Reiziger.class);
+            cr.select(root);
+            Query<Reiziger> query = session.createQuery(cr);
+
             reizigers = query.list();
             tx.commit();
             return reizigers;
