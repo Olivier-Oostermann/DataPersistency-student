@@ -8,6 +8,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,7 +41,6 @@ public class AdresDAOHibernate implements AdresDAO{
     public boolean update(Adres adres) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-
         try{
             session.update(adres);
             tx.commit();
@@ -91,7 +93,12 @@ public class AdresDAOHibernate implements AdresDAO{
         List<Adres> adressen;
 
         try{
-            Query<Adres> query = session.createQuery("FROM Adres", Adres.class);
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Adres> cr = cb.createQuery(Adres.class);
+            Root<Adres> root = cr.from(Adres.class);
+            cr.select(root);
+            Query<Adres> query = session.createQuery(cr);
+
             adressen = query.list();
             tx.commit();
             return adressen;

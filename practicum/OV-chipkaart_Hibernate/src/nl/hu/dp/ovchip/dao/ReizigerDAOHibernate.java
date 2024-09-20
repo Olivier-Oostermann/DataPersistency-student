@@ -36,7 +36,6 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
     public boolean update(Reiziger reiziger) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-
         try{
             session.update(reiziger);
             tx.commit();
