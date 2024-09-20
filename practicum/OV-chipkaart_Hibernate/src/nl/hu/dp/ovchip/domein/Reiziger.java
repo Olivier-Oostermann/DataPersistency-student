@@ -4,6 +4,7 @@ import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "reiziger")
@@ -30,6 +31,13 @@ public class Reiziger {
             orphanRemoval = true
     )
     private Adres adres;
+
+    @OneToMany(
+            mappedBy = "reiziger",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OVChipkaart> ovChipkaarten;
 
     public Reiziger() {}
 
