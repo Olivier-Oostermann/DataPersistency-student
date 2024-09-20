@@ -92,7 +92,6 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Reiziger> cr = cb.createQuery(Reiziger.class);
             Root<Reiziger> root = cr.from(Reiziger.class);
-            cr.select(root);
             cr.select(root).where(cb.equal(root.get("geboortedatum"), date));
             Query<Reiziger> query = session.createQuery(cr);
             reizigers = query.list();
