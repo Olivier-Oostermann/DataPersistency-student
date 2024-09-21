@@ -3,12 +3,12 @@ package nl.hu.dp.ovchip.domein;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity(name = "OVChipkaart")
-@Table(name = "OVChipkaart")
+@Entity(name = "ov_chipkaart")
+@Table(name = "ov_chipkaart")
 public class OVChipkaart {
     @Id
     @Column(name = "kaart_nummer")
-    private int kaart_numer;
+    private int kaart_nummer;
     @Column(name = "geldig_tot")
     private Date geldig_tot;
     @Column(name = "klasse")
@@ -33,11 +33,11 @@ public class OVChipkaart {
     }
 
     public int getKaart_nummer() {
-        return kaart_numer;
+        return kaart_nummer;
     }
 
-    public void setKaart_numer(int kaart_numer) {
-        this.kaart_numer = kaart_numer;
+    public void setKaart_nummer(int kaart_nummer) {
+        this.kaart_nummer = kaart_nummer;
     }
 
     public Date getGeldig_tot() {
@@ -67,7 +67,7 @@ public class OVChipkaart {
     @Override
     public String toString() {
         return "OVChipkaart: " +
-                "kaart_numer = " + kaart_numer +
+                "kaart_nummer = " + kaart_nummer +
                 ", geldig_tot = " + geldig_tot +
                 ", klasse = " + klasse +
                 ", saldo = " + saldo;
