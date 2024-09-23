@@ -66,10 +66,11 @@ public class OVChipkaart {
 
     @Override
     public String toString() {
-        return "OVChipkaart: " +
+        return "OVChipkaart{" +
                 "kaart_nummer = " + kaart_nummer +
                 ", geldig_tot = " + geldig_tot +
                 ", klasse = " + klasse +
-                ", saldo = " + saldo;
+                ", saldo = " + saldo +
+                '}';
     }
 }

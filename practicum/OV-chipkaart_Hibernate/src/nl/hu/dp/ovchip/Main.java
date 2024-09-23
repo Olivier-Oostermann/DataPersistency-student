@@ -163,9 +163,8 @@ public class Main {
         System.out.println("Het adres is geupdate. De straatnaam is nu: " + adres.getStraat() + "\n");
 
         // vind het adres van een reiziger
-        System.out.println("Het adres van een specifieke reiziger:");
         Adres gevondenAdres = adao.findByReiziger(olivier);
-        System.out.println(gevondenAdres + "\n");
+        System.out.println("Het adres van een specifieke reiziger: " + gevondenAdres + "\n");
 
         // Delete een reiziger van de database
         System.out.println("Het volgende adres wordt verwijderd: " + adres);
@@ -209,9 +208,8 @@ public class Main {
 
         // vind het ovChipkaarten van een reiziger
         List<OVChipkaart> gevondenOvChipkaarten;
-        System.out.println("De ovChipkaart van een specifieke reiziger:");
         gevondenOvChipkaarten = odao.findByReiziger(teun);
-        System.out.println(gevondenOvChipkaarten + "\n");
+        System.out.println("De ovChipkaart van een specifieke reiziger: " + gevondenOvChipkaarten + "\n");
 
         // Delete een ovChipkaarten en reiziger van de database
         System.out.println("De volgende ovChipkaart wordt verwijderd: " + ovChipkaart);

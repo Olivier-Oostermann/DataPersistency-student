@@ -79,6 +79,12 @@ public class Adres {
     }
 
     public String toString(){
-        return "Adresgegevens: " + postcode + ", " + woonplaats + ", " + straat + " " + huisnummer;
+        return "Adres{" +
+                "id=" + id +
+                ", postcode='" + postcode + '\'' +
+                ", huisnummer='" + huisnummer + '\'' +
+                ", straat='" + straat + '\'' +
+                ", woonplaats=" + woonplaats +
+                '}';
     }
 }

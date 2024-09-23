@@ -89,8 +89,15 @@ public class Reiziger {
         return voorletters + " " + tussenvoegsel + " " + achternaam;
     }
 
-    public String toString(){
-        return "Uw volledige naam is " + voorletters + " " + tussenvoegsel + " " + achternaam + "\nU bent geboren op " + geboortedatum + "\n";
+    @Override
+    public String toString() {
+        return "Reiziger{" +
+                "id=" + id +
+                ", voorletters='" + voorletters + '\'' +
+                ", tussenvoegsel='" + tussenvoegsel + '\'' +
+                ", achternaam='" + achternaam + '\'' +
+                ", geboortedatum=" + geboortedatum +
+                '}';
     }
 }
 
