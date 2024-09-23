@@ -54,7 +54,9 @@ public class Main {
         ReizigerDAO rdao = new ReizigerDAOHibernate(factory);
         AdresDAO adao = new AdresDAOHibernate(factory);
         OVChipkaartDAO odao = new OVChipkaartDAOHibernate(factory);
-        testReizigerDAO(rdao, adao, odao);
+        testReizigerDAO(rdao);
+        testAdresDAO(adao, rdao);
+        testOvChipkaartDAO(odao, rdao);
 //        testFetchAll();
     }
 
@@ -85,7 +87,7 @@ public class Main {
      *
      * @throws SQLException
      */
-    private static void testReizigerDAO(ReizigerDAO rdao, AdresDAO adao, OVChipkaartDAO odao) throws SQLException {
+    private static void testReizigerDAO(ReizigerDAO rdao) throws SQLException {
         System.out.println("\n---------- Test ReizigerDAO -------------");
 
         // Haal alle reizigers op uit de database
@@ -125,6 +127,9 @@ public class Main {
         System.out.println("De volgende reiziger wordt verwijderd: " + reiziger.getNaam());
         rdao.delete(reiziger);
 
+    }
+
+    private static void testAdresDAO(AdresDAO adao, ReizigerDAO rdao) throws SQLException {
         System.out.println("\n---------- Test AdresDAO -------------");
 
         // Haal alle adressen op uit de database
@@ -137,8 +142,9 @@ public class Main {
 
         // Maak een nieuw adres aan en persisteer deze in de database
         String gbDatumAdres = "2003-12-17";
-        Reiziger olivier = new Reiziger(7, "O", "", "Oostermann", java.sql.Date.valueOf(gbDatumAdres));
+        Reiziger olivier = new Reiziger(99, "O", "", "Oostermann", java.sql.Date.valueOf(gbDatumAdres));
         rdao.save(olivier);
+
         Adres adres = new Adres();
         adres.setId(7);
         adres.setPostcode("2408RV");
@@ -165,8 +171,9 @@ public class Main {
         System.out.println("Het volgende adres wordt verwijderd: " + adres);
         adao.delete(adres);
         rdao.delete(olivier);
+    }
 
-
+    private static void testOvChipkaartDAO(OVChipkaartDAO odao, ReizigerDAO rdao) throws SQLException {
         System.out.println("\n---------- Test ovChipkaartDAO -------------");
 
         // Haal alle ovchipkaarten op uit de database
@@ -180,12 +187,12 @@ public class Main {
 
         // Maak een nieuw ovChipkaart aan en persisteer deze in de database
         String gbDatumT = "2003-10-09";
-        Reiziger teun = new Reiziger(10, "T", "van der", "Broek", java.sql.Date.valueOf(gbDatumT));
+        Reiziger teun = new Reiziger(66, "T", "van der", "Broek", java.sql.Date.valueOf(gbDatumT));
         rdao.save(teun);
 
         String datum_geldig_tot = "2003-10-09";
         OVChipkaart ovChipkaart = new OVChipkaart();
-        ovChipkaart.setKaart_nummer(20391);
+        ovChipkaart.setKaart_nummer(203931);
         ovChipkaart.setGeldig_tot(java.sql.Date.valueOf(datum_geldig_tot));
         ovChipkaart.setKlasse(1);
         ovChipkaart.setSaldo(500);
@@ -201,18 +208,15 @@ public class Main {
         System.out.println("De ovChipkaart is geupdate. Het saldo is nu: " + ovChipkaart.getSaldo() + "\n");
 
         // vind het ovChipkaarten van een reiziger
-//        List<OVChipkaart> gevondenOvChipkaarten;
-//        System.out.println("De ovChipkaart van een specifieke reiziger:");
-//        gevondenOvChipkaarten = odao.findByReiziger(teun);
-//        System.out.println(gevondenOvChipkaarten + "\n");
+        List<OVChipkaart> gevondenOvChipkaarten;
+        System.out.println("De ovChipkaart van een specifieke reiziger:");
+        gevondenOvChipkaarten = odao.findByReiziger(teun);
+        System.out.println(gevondenOvChipkaarten + "\n");
 
         // Delete een ovChipkaarten en reiziger van de database
         System.out.println("De volgende ovChipkaart wordt verwijderd: " + ovChipkaart);
         odao.delete(ovChipkaart);
         rdao.delete(teun);
-
-
-
-
     }
+
 }

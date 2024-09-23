@@ -79,7 +79,7 @@ public class OVChipkaartDAOHibernate implements OVChipkaartDAO {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<OVChipkaart> cr = cb.createQuery(OVChipkaart.class);
             Root<OVChipkaart> root = cr.from(OVChipkaart.class);
-            cr.select(root).where(cb.equal(root.get("reiziger_id"), reiziger.getId()));
+            cr.select(root).where(cb.equal(root.get("reiziger"), reiziger));
             Query<OVChipkaart> query = session.createQuery(cr);
             ovChipkaarten = query.list();
             tx.commit();

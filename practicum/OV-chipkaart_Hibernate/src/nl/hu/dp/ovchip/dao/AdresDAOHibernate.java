@@ -1,6 +1,7 @@
 package nl.hu.dp.ovchip.dao;
 
 import nl.hu.dp.ovchip.domein.Adres;
+import nl.hu.dp.ovchip.domein.OVChipkaart;
 import nl.hu.dp.ovchip.domein.Reiziger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -70,12 +71,16 @@ public class AdresDAOHibernate implements AdresDAO{
     }
 
     @Override
-    public Adres findByReiziger(Reiziger r) throws SQLException {
+    public Adres findByReiziger(Reiziger reiziger) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         Adres adres;
         try{
-            adres = session.get(Adres.class, r.getId());
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Adres> cr = cb.createQuery(Adres.class);
+            Root<Adres> root = cr.from(Adres.class);
+            cr.select(root).where(cb.equal(root.get("reiziger"), reiziger));
+            adres = session.createQuery(cr).uniqueResult();
             tx.commit();
             return adres;
         } catch (Exception e) {
