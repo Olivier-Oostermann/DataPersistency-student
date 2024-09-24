@@ -191,7 +191,7 @@ public class Main {
 
         String datum_geldig_tot = "2003-10-09";
         OVChipkaart ovChipkaart = new OVChipkaart();
-        ovChipkaart.setKaart_nummer(203931);
+        ovChipkaart.setKaart_nummer(203932);
         ovChipkaart.setGeldig_tot(java.sql.Date.valueOf(datum_geldig_tot));
         ovChipkaart.setKlasse(1);
         ovChipkaart.setSaldo(500);
@@ -202,7 +202,7 @@ public class Main {
         System.out.println(alleOvChipkaarten.size() + " ovChipkaarten\n");
 
         // Update een ovChipkaart en persisteer deze in de database
-        ovChipkaart.setSaldo(550);
+        ovChipkaart.setSaldo(600);
         odao.update(ovChipkaart);
         System.out.println("De ovChipkaart is geupdate. Het saldo is nu: " + ovChipkaart.getSaldo() + "\n");
 
