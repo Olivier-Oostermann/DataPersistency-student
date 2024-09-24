@@ -74,13 +74,12 @@ public class AdresDAOHibernate implements AdresDAO{
     public Adres findByReiziger(Reiziger reiziger) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        Adres adres;
         try{
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Adres> cr = cb.createQuery(Adres.class);
             Root<Adres> root = cr.from(Adres.class);
             cr.select(root).where(cb.equal(root.get("reiziger"), reiziger));
-            adres = session.createQuery(cr).uniqueResult();
+            Adres adres = session.createQuery(cr).uniqueResult();
             tx.commit();
             return adres;
         } catch (Exception e) {
