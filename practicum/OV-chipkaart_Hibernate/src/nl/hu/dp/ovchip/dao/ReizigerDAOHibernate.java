@@ -68,9 +68,8 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
     public Reiziger findById(int reiziger_id) throws SQLException {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        Reiziger reiziger;
         try{
-            reiziger = session.get(Reiziger.class, reiziger_id);
+            Reiziger reiziger = session.get(Reiziger.class, reiziger_id);
             tx.commit();
             return reiziger;
         } catch (Exception e){
