@@ -2,8 +2,10 @@ package nl.hu.dp.ovchip.domein;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity(name = "ov_chipkaart")
+@Entity
 @Table(name = "ov_chipkaart")
 public class OVChipkaart {
     @Id
@@ -19,6 +21,11 @@ public class OVChipkaart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reiziger_id")
     private Reiziger reiziger;
+
+    @ManyToMany(mappedBy = "ovChipkaarten")
+    private List<Product> producten = new ArrayList<>();
+    
+
 
     public OVChipkaart(){
 
