@@ -246,26 +246,26 @@ public class Main {
 
         // Maak een nieuw product aan en persisteer deze in de database
         Product product = new Product(7, "Test productnaam", "Dit is een beschrijving van de test", 22.30);
-//        product.addOvChipkaarten(ovChipkaart);
+        product.addOvChipkaarten(ovChipkaart);
         System.out.println("Het volgende product wordt toegevoegd: " + product + "\n");
 //        pdao.save(product);
 
         // Update een product van de database
         System.out.println("Het volgende product wordt geupdate: " + product);
-//        product.setNaam("Studenten Ov");
+        product.setNaam("Studenten Ov");
 //        pdao.update(product);
         System.out.println("Het product is nu: " + product + "\n");
 
         // Vind alle producten van een ov chipkaart
-//        System.out.println("De ov chipkaart heeft deze producten: ");
-//        List<Product> productenFromChipkaart = pdao.findByOVChipkaart(ovChipkaart);
-//        for(Product p : productenFromChipkaart){
-//            System.out.println(p);
-//        }
-//        System.out.println();
+        System.out.println("De ov chipkaart heeft deze producten: ");
+        List<Product> productenFromChipkaart = pdao.findByOVChipkaart(ovChipkaart);
+        for(Product p : productenFromChipkaart){
+            System.out.println(p);
+        }
+        System.out.println();
 
         // Delete een product van de database
-//        System.out.println("Het volgende product wordt verwijderd: " + product);
+        System.out.println("Het volgende product wordt verwijderd: " + product);
 //        pdao.delete(product);
 //        odao.delete(ovChipkaart);
 //        rdao.delete(productReiziger);
