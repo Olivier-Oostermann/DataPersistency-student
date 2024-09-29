@@ -19,7 +19,7 @@ public class Product {
 
     @ManyToMany(cascade = { CascadeType.ALL})
     @JoinTable(
-            name = "producten_ovchipkaart",
+            name = "ov_chipkaart_product",
             joinColumns = { @JoinColumn(name = "product_nummer")},
             inverseJoinColumns = { @JoinColumn(name = "kaart_nummer")}
     )

@@ -3,6 +3,7 @@ package nl.hu.dp.ovchip;
 import nl.hu.dp.ovchip.dao.*;
 import nl.hu.dp.ovchip.domein.Adres;
 import nl.hu.dp.ovchip.domein.OVChipkaart;
+import nl.hu.dp.ovchip.domein.Product;
 import nl.hu.dp.ovchip.domein.Reiziger;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -54,9 +55,12 @@ public class Main {
         ReizigerDAO rdao = new ReizigerDAOHibernate(factory);
         AdresDAO adao = new AdresDAOHibernate(factory);
         OVChipkaartDAO odao = new OVChipkaartDAOHibernate(factory);
+        ProductDAO pdao = new ProductDAOHibernate(factory);
+
         testReizigerDAO(rdao);
         testAdresDAO(adao, rdao);
         testOvChipkaartDAO(odao, rdao);
+        testProductDAO(pdao, odao, rdao);
 //        testFetchAll();
     }
 
@@ -215,6 +219,58 @@ public class Main {
         System.out.println("De volgende ovChipkaart wordt verwijderd: " + ovChipkaart);
         odao.delete(ovChipkaart);
         rdao.delete(teun);
+    }
+
+    private static void testProductDAO(ProductDAO pdao, OVChipkaartDAO odao, ReizigerDAO rdao) throws SQLException {
+//        String gbDatumT = "2003-10-09";
+//        Reiziger productReiziger = new Reiziger(21, "O", "van der", "Broek", java.sql.Date.valueOf(gbDatumT));
+//        rdao.save(productReiziger);
+//
+//        String datum_geldig_tot = "2020-10-09";
+//        OVChipkaart ovChipkaart = new OVChipkaart();
+//        ovChipkaart.setKaart_nummer(23919);
+//        ovChipkaart.setGeldig_tot(java.sql.Date.valueOf(datum_geldig_tot));
+//        ovChipkaart.setKlasse(1);
+//        ovChipkaart.setSaldo(500);
+//        ovChipkaart.setReiziger(productReiziger);
+//        odao.save(ovChipkaart);
+
+        System.out.println("\n---------- Test productDAO -------------");
+        // Haal alle producten op uit de database
+        List<Product> producten = pdao.findAll();
+        System.out.println("[Test] ProductDAO.findAll() geeft de volgende ovchipkaarten:");
+        for (Product p : producten) {
+            System.out.println(p);
+        }
+        System.out.println();
+
+        // Maak een nieuw product aan en persisteer deze in de database
+//        Product product = new Product(7, "Test productnaam", "Dit is een beschrijving van de test", 22.30);
+//        product.addOvChipkaarten(ovChipkaart);
+//        System.out.println("Het volgende product wordt toegevoegd: " + product + "\n");
+//        pdao.save(product);
+
+        // Update een product van de database
+//        System.out.println("Het volgende product wordt geupdate: " + product);
+//        product.setNaam("Studenten Ov");
+//        pdao.update(product);
+//        System.out.println("Het product is nu: " + product + "\n");
+
+        // Vind alle producten van een ov chipkaart
+//        System.out.println("De ov chipkaart heeft deze producten: ");
+//        List<Product> productenFromChipkaart = pdao.findByOVChipkaart(ovChipkaart);
+//        for(Product p : productenFromChipkaart){
+//            System.out.println(p);
+//        }
+//        System.out.println();
+
+        // Delete een product van de database
+//        System.out.println("Het volgende product wordt verwijderd: " + product);
+//        pdao.delete(product);
+//        odao.delete(ovChipkaart);
+//        rdao.delete(productReiziger);
+
+
     }
 
 }
