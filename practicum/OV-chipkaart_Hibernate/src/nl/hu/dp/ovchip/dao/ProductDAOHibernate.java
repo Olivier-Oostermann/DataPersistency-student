@@ -3,6 +3,7 @@ package nl.hu.dp.ovchip.dao;
 import nl.hu.dp.ovchip.domein.Adres;
 import nl.hu.dp.ovchip.domein.OVChipkaart;
 import nl.hu.dp.ovchip.domein.Product;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -24,28 +25,71 @@ public class ProductDAOHibernate implements ProductDAO {
     public boolean save(Product product) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        return false;
+        try {
+            session.save(product);
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public boolean update(Product product) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        return false;
+        try{
+            session.update(product);
+            tx.commit();
+            return true;
+        } catch (Exception e){
+            tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public boolean delete(Product product) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        return false;
+        try{
+            session.delete(product);
+            tx.commit();
+            return true;
+        } catch (Exception e){
+            tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public List<Product> findByOVChipkaart(OVChipkaart ovChipkaart) {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        return List.of();
+
+        List<Product> producten;
+        try{
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Product> cr = cb.createQuery(Product.class);
+            Root<Product> root = cr.from(Product.class);
+            cr.select(root).where(cb.equal(root.get("ov_chipkaart"), ovChipkaart));
+            Query<Product> query = session.createQuery(cr);
+            producten = query.list();
+            tx.commit();
+            return producten;
+        } catch (HibernateException e){
+            tx.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     @Override

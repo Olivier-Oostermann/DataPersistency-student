@@ -222,17 +222,17 @@ public class Main {
     }
 
     private static void testProductDAO(ProductDAO pdao, OVChipkaartDAO odao, ReizigerDAO rdao) throws SQLException {
-//        String gbDatumT = "2003-10-09";
-//        Reiziger productReiziger = new Reiziger(21, "O", "van der", "Broek", java.sql.Date.valueOf(gbDatumT));
+        String gbDatumT = "2003-10-09";
+        Reiziger productReiziger = new Reiziger(21, "O", "van der", "Broek", java.sql.Date.valueOf(gbDatumT));
 //        rdao.save(productReiziger);
-//
-//        String datum_geldig_tot = "2020-10-09";
-//        OVChipkaart ovChipkaart = new OVChipkaart();
-//        ovChipkaart.setKaart_nummer(23919);
-//        ovChipkaart.setGeldig_tot(java.sql.Date.valueOf(datum_geldig_tot));
-//        ovChipkaart.setKlasse(1);
-//        ovChipkaart.setSaldo(500);
-//        ovChipkaart.setReiziger(productReiziger);
+
+        String datum_geldig_tot = "2020-10-09";
+        OVChipkaart ovChipkaart = new OVChipkaart();
+        ovChipkaart.setKaart_nummer(23919);
+        ovChipkaart.setGeldig_tot(java.sql.Date.valueOf(datum_geldig_tot));
+        ovChipkaart.setKlasse(1);
+        ovChipkaart.setSaldo(500);
+        ovChipkaart.setReiziger(productReiziger);
 //        odao.save(ovChipkaart);
 
         System.out.println("\n---------- Test productDAO -------------");
@@ -245,16 +245,16 @@ public class Main {
         System.out.println();
 
         // Maak een nieuw product aan en persisteer deze in de database
-//        Product product = new Product(7, "Test productnaam", "Dit is een beschrijving van de test", 22.30);
+        Product product = new Product(7, "Test productnaam", "Dit is een beschrijving van de test", 22.30);
 //        product.addOvChipkaarten(ovChipkaart);
-//        System.out.println("Het volgende product wordt toegevoegd: " + product + "\n");
+        System.out.println("Het volgende product wordt toegevoegd: " + product + "\n");
 //        pdao.save(product);
 
         // Update een product van de database
-//        System.out.println("Het volgende product wordt geupdate: " + product);
+        System.out.println("Het volgende product wordt geupdate: " + product);
 //        product.setNaam("Studenten Ov");
 //        pdao.update(product);
-//        System.out.println("Het product is nu: " + product + "\n");
+        System.out.println("Het product is nu: " + product + "\n");
 
         // Vind alle producten van een ov chipkaart
 //        System.out.println("De ov chipkaart heeft deze producten: ");
