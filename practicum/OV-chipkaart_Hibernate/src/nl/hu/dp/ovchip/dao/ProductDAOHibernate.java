@@ -79,7 +79,7 @@ public class ProductDAOHibernate implements ProductDAO {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Product> cr = cb.createQuery(Product.class);
             Root<Product> root = cr.from(Product.class);
-            cr.select(root).where(cb.equal(root.get("ovChipkaarten"), ovChipkaart));
+            cr.select(root).where(cb.isMember(ovChipkaart, root.get("ovChipkaarten")));
             Query<Product> query = session.createQuery(cr);
             producten = query.list();
             tx.commit();

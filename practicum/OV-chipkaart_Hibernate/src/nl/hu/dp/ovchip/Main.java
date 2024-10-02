@@ -224,7 +224,7 @@ public class Main {
     private static void testProductDAO(ProductDAO pdao, OVChipkaartDAO odao, ReizigerDAO rdao) throws SQLException {
         String gbDatumT = "2003-10-09";
         Reiziger productReiziger = new Reiziger(21, "O", "van der", "Broek", java.sql.Date.valueOf(gbDatumT));
-//        rdao.save(productReiziger);
+        rdao.save(productReiziger);
 
         String datum_geldig_tot = "2020-10-09";
         OVChipkaart ovChipkaart = new OVChipkaart();
@@ -233,7 +233,7 @@ public class Main {
         ovChipkaart.setKlasse(1);
         ovChipkaart.setSaldo(500);
         ovChipkaart.setReiziger(productReiziger);
-//        odao.save(ovChipkaart);
+        odao.save(ovChipkaart);
 
         System.out.println("\n---------- Test productDAO -------------");
         // Haal alle producten op uit de database
@@ -248,12 +248,12 @@ public class Main {
         Product product = new Product(7, "Test productnaam", "Dit is een beschrijving van de test", 22.30);
         product.addOvChipkaarten(ovChipkaart);
         System.out.println("Het volgende product wordt toegevoegd: " + product + "\n");
-//        pdao.save(product);
+        pdao.save(product);
 
         // Update een product van de database
         System.out.println("Het volgende product wordt geupdate: " + product);
         product.setNaam("Studenten Ov");
-//        pdao.update(product);
+        pdao.update(product);
         System.out.println("Het product is nu: " + product + "\n");
 
         // Vind alle producten van een ov chipkaart
@@ -266,9 +266,10 @@ public class Main {
 
         // Delete een product van de database
         System.out.println("Het volgende product wordt verwijderd: " + product);
-//        pdao.delete(product);
-//        odao.delete(ovChipkaart);
-//        rdao.delete(productReiziger);
+
+        pdao.delete(product);
+        odao.delete(ovChipkaart);
+        rdao.delete(productReiziger);
 
 
     }
